@@ -56,7 +56,8 @@ Once these parameters are considered, run the setup program to create the HTCond
     python run_mrbayes.py -i toInclude.txt -C 1 -n 5000000 -f 50000 -s 6
 
 # Run the HTCondor job
-To run the job, simply enter the following command from the HTCondor submit node
+To run the job, simply enter the following command from the HTCondor submit node:
+
     condor_submit_dag run_mrbayes.dag
     
 The tree files, \*.t, are gathered into a tarball, run_mrbayes.tar.  This file should be
