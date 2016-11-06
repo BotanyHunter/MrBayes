@@ -20,7 +20,8 @@ Create a new directory inside MrBayes and give it a name such as <b>data</b>.</b
 Place all files on which you would like to run MrBayes (in nexus format) into the directory.
 The file extensions must be ".nex".
 
-To only run MrBayes on a particular subset of taxa, create a file in the MrBayes directory with the following format:
+To only run MrBayes on a particular subset of taxa, create a file in the MrBayes directory with the following format
+with, of course, the names being those specimens to be included and the number being from 1 to the number to be included:
 
     translate
     1 taxa_name_1
@@ -43,3 +44,20 @@ Currently, six of MrBayes parameters can be set different from their defaults.  
 <tr><td>-r</td><td>Rates</td><td>gamma</td></tr>
 <tr><td>-g</td><td>Amino acid model</td><td>None</td></tr>
 </table>
+
+There are two additional parameters
+<table>
+<tr><td>parameter</td><td>meaning</td><td>default</td></tr>
+<tr><td>-i</td><td>Name of file with specimens to include</td><td>Include all specimens</td></tr>
+<tr><td>-C</td><td>1 if to only include genes found on all taxa</td><td>0</td></tr>
+</table>
+
+Once these parameters are considered, run the setup program to create the HTCondor submit and dag file.
+    python run_mrbayes.py -i toInclude.txt -C 1 -n 5000000 -f 50000 -s 6
+
+# Run the HTCondor job
+To run the job, simply enter the following command from the HTCondor submit node
+    condor_submit_dag run_mrbayes.dag
+    
+The tree files, \*.t, are gathered into a tarball, run_mrbayes.tar.  This file should be
+renamed so as not to be overwritten.  The details of each MrBayes run are placed in the /log directory.
