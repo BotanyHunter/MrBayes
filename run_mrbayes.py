@@ -108,6 +108,8 @@ def main():
     #step 2: launch mb
     mb_command = "./" + mrbayes_executable + " input.nex"
     try:
+        with open("input.nex") as f:
+		content = f.readlines()
         retValue = subprocess.call(mb_command, shell=True)
     except OSError as e:
         print "Error executing MrBayes"

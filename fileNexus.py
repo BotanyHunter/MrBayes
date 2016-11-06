@@ -54,16 +54,16 @@ def find_taxa_set(translate_file):
     taxa_list = {}
     translate_found = False
     translate_end = False
-    lines = [line.rstrip('\n') for line in open(translate_file,"r")]
+    lines = [line.rstrip() for line in open(translate_file,"r")]
     for line in lines:
-        if (translate_found and not translate_end):
-            indiv_taxa = line.split()
-            taxa_list[indiv_taxa[0]] = indiv_taxa[1][0:-1]
-        if (re.search('translate', line)):
-            translate_found = True
         if (translate_found and re.search(';', line)):
             translate_end = True
             break
+        if (translate_found and not translate_end):
+            indiv_taxa = line.split()
+            taxa_list[indiv_taxa[0]] = indiv_taxa[1]
+        if (re.search('translate', line)):
+            translate_found = True
     return taxa_list
 
 def create_mb_block(mb_ngen, mb_nst, mb_rates, mb_aamodel, mb_burnin, mb_samplefreq):
@@ -279,7 +279,7 @@ class fileWriter:
         #find the genetic data associated with each taxon
         orig_file = open(filename, 'r')
         for line in orig_file:
-            line = remove_comment(line)                                         #added 24 Aug 2016 by SJH
+            line = remove_comment(line.rstrip())                                 #added 24 Aug 2016 by SJH.  Added rstrip 4 Nov 2016 by SJH
             #find the matrix header
             if (re.search('matrix', line.lower())):
                 matrix_found = True
@@ -288,7 +288,8 @@ class fileWriter:
                 matrix_found = False
 
             elif matrix_found:                                                  #switched from if to elif 25 Sep 2016 by SJH
-		propTaxaName = re.match("^\s*([^\s-]*)\s",line)			#added 24 Aug 2016 by SJH
+		#propTaxaName = re.match("^\s*([^\s-]*)\s",line)		#added 24 Aug 2016 by SJH
+		propTaxaName = re.match("^\s*([^\s]*)\s",line)			#added 24 Aug 2016 by SJH - removed dash 4 Nov 2016 SJH
                 if propTaxaName:					       	#added 24 Aug 2016 by SJH
 			propTaxaName = propTaxaName.group(1)			#added 24 Aug 2016 by SJH
 		else:								#added 24 Aug 2016 by SJH
@@ -375,7 +376,7 @@ class fileWriter:
 
             return 0
         else:
-            return findErrorCode("fileWriter_condor: Less than four taxa found")
+            return findErrorCode("fileWriter_condor: not all taxa found")
             
     def add_to_output_file(self, cf_dict, ciLow_dict, ciHigh_dict, which_taxa):
         '''

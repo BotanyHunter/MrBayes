@@ -5,6 +5,7 @@ def main():
 
     try:
         returnValue = int(sys.argv[1])
+        print "Return value from MrBayes is " + str(returnValue)
     except:
         print "Error: could not find return value from run_mrbayes"
         return 2
