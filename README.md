@@ -18,10 +18,11 @@ which will create a new directory called <b>MrBayes</b> and download:
 
 Create a new directory inside MrBayes and give it a name such as <b>data</b>.</br></br>
 Place all files on which you would like to run MrBayes (in nexus format) into the directory.
-The file extensions must be ".nex".
+The file extensions must be ".nex".  If necessary, see repository PhylogeneticFileConversions to batch convert
+files from phylip format to nexus.
 
-To only run MrBayes on a particular subset of taxa, create a file in the MrBayes directory with the following format
-with, of course, the names being those specimens to be included and the number being from 1 to the number to be included:
+To only run MrBayes on a particular subset of taxa, create a file in the MrBayes directory with the format
+shown below. Of course, the names being those specimens to be included and the number being from 1 to the number to be included.
 
     translate
     1 taxa_name_1
@@ -34,7 +35,7 @@ with, of course, the names being those specimens to be included and the number b
 
 # Set up the HTCondor job
 
-Currently, six of MrBayes parameters can be set different from their defaults.  These are
+Currently, six of MrBayes parameters can be set.  All others will be set to their defaults.  The six are
 <table>
 <tr><td>parameter</td><td>meaning</td><td>default</td></tr>
 <tr><td>-n</td><td>Number of generations</td><td>1,000,000</td></tr>
@@ -53,6 +54,7 @@ There are two additional parameters
 </table>
 
 Once these parameters are considered, run the setup program to create the HTCondor submit and dag file.
+
     python run_mrbayes.py -i toInclude.txt -C 1 -n 5000000 -f 50000 -s 6
 
 # Run the HTCondor job
