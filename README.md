@@ -54,8 +54,9 @@ There are two additional parameters
 </table>
 
 Once these parameters are considered, run the setup program to create the HTCondor submit and dag file.
+Replace <i>data_directory</i> with the name of the directory with the data files.
 
-    python run_mrbayes.py -i toInclude.txt -C 1 -n 5000000 -f 50000 -s 6
+    python setup_mrbayes.py data_directory -i toInclude.txt -C 1 -n 5000000 -f 50000 -s 6
 
 # Run the HTCondor job
 To run the job, simply enter the following command from the HTCondor submit node:
