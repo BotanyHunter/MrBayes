@@ -75,10 +75,10 @@ def create_mb_block(mb_ngen, mb_nst, mb_rates, mb_aamodel, mb_burnin, mb_samplef
     #calculate sample frequency/print freq based on the number of generations
     #have a max of 100000 trees stored
     MAX_SAMPLE = 100000
-    if (mb_samplefreq <= MAX_SAMPLE and mb_samplefreq<= mb_ngen):
+    if (mb_ngen/mb_samplefreq <= MAX_SAMPLE and mb_samplefreq<= mb_ngen):    #SJH added "mb_ngen/" on 17 Apr 2018
         samplefreq = mb_samplefreq
     elif (mb_ngen <= MAX_SAMPLE):
-        samplefreq = mb_ngen
+        samplefreq = mb_ngen/1000        #SJH added "/1000" on 17 Apr 2018
     else:
         samplefreq = mb_ngen/MAX_SAMPLE + 1
 
