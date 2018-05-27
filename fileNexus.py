@@ -307,7 +307,8 @@ class fileWriter:
                                                                                            #added "?" to matchable sequence characters - 25 Sep  2016 SJH
                                 self.data[i] += sequence_data.group(0)
                             taxa_line_count[i] += 1
-                if includeTaxa is None and taxa_found is False and len(propTaxaName) > 0:                        #this section added 25 Sep 2016 by SJH
+                #if includeTaxa is None and taxa_found is False and len(propTaxaName) > 0 :                                  #this section added 25 Sep 2016 by SJH
+                if includeTaxa is None and taxa_found is False and len(propTaxaName) > 0 and propTaxaName != "END;":         #this line updated 27 May 2018 by SJH
                     #print("adding: ",propTaxaName)
                     self.tax_list.append(propTaxaName)
                     self.data.append(line.rstrip())
